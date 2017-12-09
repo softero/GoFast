@@ -181,25 +181,6 @@ with the standard `local <module> = require("<module>")`.
   is printed, a timestamp is prepended to it. It is really just a wrapper to Golang's
   `log.Println` function.
 
-## Custom scripts
-
-Additionally, any Lua files in the scripts directory will be loaded into the Lua
-runtime and are available without the use of `require`. These are namespaced according
-to subdirectory. So, the functions defined in `scripts/MyScript.lua` will be
-loaded in as globals. Functions defined in `scripts/subspace/MyScript.lua` will be
-loaded into the `subspace` global table in Lua, so they would be available as
-`subspace.MyFunction1()`. Multiple files can be loaded from the same namespace, so
-functions can be logically separated for the convenience of the script author. The
-downside to this is that if two files in the same directory define a identically
-named functions, one will overwrite the other. The behavior of this is undefined.
-
-To create a script, use the generate action of GoFast. This is done the same way
-as generating a standalone operator, but uses the `-script` flag instead.
-
-    ./gofast gen -script scripts/subspace.MyFunctions
-
-will create a template file in `scripts/subspace/MyFunctions.lua`.
-
 ## book
 
 The book module is essentially a wrapper for a globally accessible associative table.
@@ -225,6 +206,25 @@ is not the specified type.
 * `book.GetIntList(<key>)`/`SetIntList(<key>, <value>)`
 * `book.GetFloatList(<key>)`/`SetFloatList(<key>, <value>)`
 * `book.GetTuple(<key>)`/`SetTuple(<key>, <value>)`
+
+## Custom scripts
+
+Additionally, any Lua files in the scripts directory will be loaded into the Lua
+runtime and are available without the use of `require`. These are namespaced according
+to subdirectory. So, the functions defined in `scripts/MyScript.lua` will be
+loaded in as globals. Functions defined in `scripts/subspace/MyScript.lua` will be
+loaded into the `subspace` global table in Lua, so they would be available as
+`subspace.MyFunction1()`. Multiple files can be loaded from the same namespace, so
+functions can be logically separated for the convenience of the script author. The
+downside to this is that if two files in the same directory define a identically
+named functions, one will overwrite the other. The behavior of this is undefined.
+
+To create a script, use the generate action of GoFast. This is done the same way
+as generating a standalone operator, but uses the `-script` flag instead.
+
+    ./gofast gen -script scripts/subspace.MyFunctions
+
+will create a template file in `scripts/subspace/MyFunctions.lua`.
 
 # Extra information
 
